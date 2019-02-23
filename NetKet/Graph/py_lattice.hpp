@@ -91,7 +91,8 @@ void AddLattice(py::module& subm) {
                   py::arg("n_dim"), py::arg("extent"),
                   py::arg("pbc") = std::vector<bool>(0),
                   R"EOF(
-          Member function constructing a hypercubic lattice of arbitrary dimension.
+          Member function constructing a hypercubic lattice of arbitrary
+          dimension.
 
           Args:
               n_dim: The dimension of the lattice.

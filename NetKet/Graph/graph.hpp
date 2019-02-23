@@ -22,7 +22,6 @@
 #include "Utils/memory_utils.hpp"
 #include "abstract_graph.hpp"
 #include "custom_graph.hpp"
-#include "hypercube.hpp"
 #include "lattice.hpp"
 
 #endif

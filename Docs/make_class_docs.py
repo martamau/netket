@@ -5,7 +5,7 @@ import sys
 
 if(len(sys.argv) != 2):
     print("Insert class name,for example: ")
-    print("python3 make_class_docs.py netket.graph.Hypercube")
+    print("python3 make_class_docs.py netket.graph.Lattice")
     exit()
 
 assert("netket" in sys.argv[1])

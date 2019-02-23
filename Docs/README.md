@@ -9,7 +9,7 @@ python build_docs.py
 
 This script will output a markdown file for each submodule and place it in a
 directory that matches the NetKet project hierarchy. For example,
-documentation for `netket.graph.hypercube` will be placed in `graph/hypercube.md`,
+documentation for `netket.graph.Lattice` will be placed in `graph/Lattices.md`,
 that resides in the root of this directory.
 
 If a new submodule is added to main netket module, it should be manually added
@@ -31,8 +31,8 @@ Where `<netket_module>` is one of the main modules, such as `graph` or `hilbert`
 It is also possible to generate documentation for a single class via
 
 ```
-python make_class_docs.py <netket_class> 
+python make_class_docs.py <netket_class>
 ```
 
-For example, `make_class_docs.py netket.graph.Hypercube` will generate
-documentation for the class `Hypercube` and write its contents to stdout.
+For example, `make_class_docs.py netket.graph.Lattice` will generate
+documentation for the class `Lattice` and write its contents to stdout.

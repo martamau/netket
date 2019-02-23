@@ -18,7 +18,6 @@ It is a Python library built on C++ primitives.
 
 * Graphs
   * Built-in Graphs
-    * Hypercube
     * General Lattice with arbitrary number of atoms per unit cell
   * Custom Graphs
     * Any Graph With Given Adjacency Matrix

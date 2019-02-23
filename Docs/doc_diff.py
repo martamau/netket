@@ -7,7 +7,7 @@ module1, ...   List the submodules to check for changes. Checks documentation
                for all submodules if left empty.
 
 Use this tool to make sure that any updates to the documentation
-generating tools do not cause any unwanted modifications. 
+generating tools do not cause any unwanted modifications.
 
 How to use it:
 
@@ -18,9 +18,9 @@ How to use it:
 Example output:
  python3 doc_diff.py graph
  Docs for  <class 'netket.graph.Graph'>
- Docs for  <class 'netket.graph.Hypercube'>
- Mismatch found in: netket.graph.Hypercube
- Report written to: report/graph/Hypercube.html
+ Docs for  <class 'netket.graph.Lattice'>
+ Mismatch found in: netket.graph.Lattice
+ Report written to: report/graph/Lattice.html
  Building documentation for: netket.graph.CustomGraph
  Mismatch found in: netket.graph.CustomGraph
  Report written to: report/graph/CustomGraph.html
@@ -42,8 +42,8 @@ report_dir = 'report'
 
 def get_generated_docs(submodules):
     """
-    Return a list of paths to generated docs (e.g., `Graph/Hypercube.md`), paths
-    to docs to generate, and module import statement (e.g., `graph.hypercube`). 
+    Return a list of paths to generated docs (e.g., `Graph/Lattice.md`), paths
+    to docs to generate, and module import statement (e.g., `graph.Lattice`).
 
     """
     # Reference files
@@ -58,7 +58,7 @@ def get_generated_docs(submodules):
             ref_files.append('%s/%s'%(submodule, file_))
             mod_files.append('%s/%s/%s'%(build_dir, submodule, file_))
             classes.append('netket.%s.%s'%(submodule.lower(),
-                           file_.split('.')[0])) 
+                           file_.split('.')[0]))
 
     return ref_files, mod_files, classes
 
@@ -70,7 +70,7 @@ def make_report(ref_file, mod_file, class_name, report_dir='reports/',
                 verbose=1):
     """
     Compare previously generated docs with most recent version. Generate a HTML
-    report for any files that do not match. 
+    report for any files that do not match.
 
     Args:
         ref_file: path to reference file.
@@ -89,7 +89,7 @@ def make_report(ref_file, mod_file, class_name, report_dir='reports/',
         report = difflib.HtmlDiff()
         html = report.make_file(fromlines, tolines)
         # remove netket from path
-        out_file = '%s/%s'%(report_dir, 
+        out_file = '%s/%s'%(report_dir,
                            '/'.join(class_name.replace('.',
                            '/').split('/')[1::]))
         out_dir = os.path.dirname(out_file)
@@ -119,7 +119,7 @@ def run(build_dir, submodules, report_dir):
         if not is_consistent:
             err = True
 
-    # Remove directory that contains temporarily generated docs. 
+    # Remove directory that contains temporarily generated docs.
     shutil.rmtree(build_dir)
     return err
 
