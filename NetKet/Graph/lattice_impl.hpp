@@ -17,6 +17,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <string>
 #include <vector>
 #include "Utils/array_search.hpp"
 #include "Utils/math_helpers.hpp"
@@ -25,6 +26,7 @@
 
 namespace netket {
 // Constructor
+
 Lattice::Lattice(std::vector<std::vector<double>> basis_vector,
                  std::vector<int> extent, std::vector<bool> pbc,
                  std::vector<std::vector<double>> V_atoms)
@@ -116,8 +118,8 @@ Lattice::Lattice(std::vector<std::vector<double>> basis_vector,
     static_cast<void>(success);  // Make everyone happy in the NDEBUG case
     assert(success && "There should be no duplicate edges");
   }
+};
 
-};  // namespace netket
 Lattice::~Lattice(){};
 
 // Get private members

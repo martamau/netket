@@ -10,7 +10,7 @@ A generic lattice built translating a unit cell and adding edges between nearest
  translations of each basis vectors have been performed while building the
  graph. The i-th component refers to translations along the i-th ``basis_vector`` direction.
 
-## Class Constructor
+## Class Constructor [1]
 Constructs a new ``Lattice`` given its side length and the features of the unit cell.
 
 |  Argument   |        Type        |                                                                    Description                                                                    |
@@ -27,6 +27,27 @@ Constructs a rectangular 3X4 lattice with periodic boundary conditions.
 >>> from netket.graph import Lattice
 >>> g=Lattice(basis_vectors=[[1,0],[0,1]],extent=[3,4])
 >>> print(g.n_sites)
+12
+
+```
+
+
+## Class Constructor [2]
+Constructs a new ``Lattice`` given its side length and its name.
+
+|  Argument  |    Type     |              Description               |
+|------------|-------------|----------------------------------------|
+|lattice_type|str          |The lattice name.                       |
+|extent      |List[int]    |The number of copies of the unit cell.  |
+|pbc         |List[bool]=[]|If ``True`` then the constructed lattice|
+
+### Examples
+Constructs a square 3X3 lattice with periodic boundary conditions.
+
+```python
+>>> from netket.graph import Lattice
+>>> g=Lattice(lattice_type="square",extent=[3,3])
+>>> print(g.basis_vectors)
 12
 
 ```

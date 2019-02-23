@@ -36,7 +36,7 @@ void AddLattice(py::module& subm) {
       .def(py::init<std::vector<std::vector<double>>, std::vector<int>,
                     std::vector<bool>, std::vector<std::vector<double>>>(),
            py::arg("basis_vectors"), py::arg("extent"),
-           py::arg("pbc") = std::vector<double>(0),
+           py::arg("pbc") = std::vector<bool>(0),
            py::arg("atoms_coord") = std::vector<std::vector<double>>(0),
            R"EOF(
                              Constructs a new ``Lattice`` given its side length and the features of the unit cell.
@@ -60,6 +60,7 @@ void AddLattice(py::module& subm) {
 
                                  ```
                              )EOF")
+
       .def_property_readonly("coordinates", &Lattice::Coordinates,
                              R"EOF(
       list[list]: The coordinates of the atoms in the lattice.)EOF")
@@ -67,6 +68,40 @@ void AddLattice(py::module& subm) {
       int: The dimension of the lattice.)EOF")
       .def_property_readonly("basis_vectors", &Lattice::BasisVectors, R"EOF(
       list[list]: The basis vectors of the lattice.)EOF")
+
+      .def_static("hypercube",
+                  [](int dim, std::vector<int> extent,
+                     std::vector<bool> pbc) -> Lattice {
+                    std::vector<std::vector<double>> basis_vectors(
+                        dim, std::vector<double>(dim));
+                    std::vector<std::vector<double>> atoms_coord(
+                        1, std::vector<double>(dim));
+                    for (int i = 0; i < dim; i++) {
+                      atoms_coord[0][i] = 0;
+                      for (int j = 0; j < dim; j++) {
+                        if (i == j) {
+                          basis_vectors[i][j] = 1;
+                        } else {
+                          basis_vectors[i][j] = 0;
+                        }
+                      }
+                    }
+                    return Lattice(basis_vectors, extent, pbc, atoms_coord);
+                  },
+                  py::arg("n_dim"), py::arg("extent"),
+                  py::arg("pbc") = std::vector<bool>(0),
+                  R"EOF(
+          Member function constructing a hypercubic lattice of arbitrary dimension.
+
+          Args:
+              n_dim: The dimension of the lattice.
+              extent: The number of copies of the unit cell.
+              pbc: If ``True`` then the constructed lattice
+              will have periodic boundary conditions, otherwise
+              open boundary conditions are imposed (default=``True``).
+
+
+          )EOF")
       .def("atom_label", &Lattice::AtomLabel, py::arg("site"), R"EOF(
           Member function returning the atom label indicating which of the unit cell atoms is located at a given a site index.
 
