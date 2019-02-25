@@ -35,3 +35,4 @@ constructed specifying the edges as follows:
 |is_bipartite  |       bool      | Whether the graph is bipartite.                                                                                           |
 |is_connected  |       bool      | Whether the graph is connected.                                                                                           |
 |n_sites       |       int       | The number of vertices in the graph.                                                                                      |
+
