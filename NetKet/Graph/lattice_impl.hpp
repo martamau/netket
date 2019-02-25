@@ -91,9 +91,9 @@ Lattice::Lattice(std::vector<std::vector<double>> basis_vector,
   }
 
   // PATHOLOGIC #2: nlatticesites_=0,1
-  if (nlatticesites_ <= 1) {
+  if (nlatticesites_ <= 0) {
     throw InvalidInputError{
-        "A well-defined lattice must have at least 2 sites.\n"};
+        "A well-defined lattice must have at least 1 site.\n"};
   }
 
   nsites_ = nlatticesites_ * natoms_;
