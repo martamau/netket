@@ -41,6 +41,14 @@ Member function returning the atom label indicating which of the unit cell atoms
 |--------|----|---------------|
 |site    |int |The site index.|
 
+### hexagonal
+Member function constructing a hexagonal lattice in 2 dimensions.
+
+|Argument|    Type     |              Description               |
+|--------|-------------|----------------------------------------|
+|extent  |List[int]    |The number of copies of the unit cell.  |
+|pbc     |List[bool]=[]|If ``True`` then the constructed lattice|
+
 ### hypercube
 Member function constructing a hypercubic lattice of arbitrary
 dimension.

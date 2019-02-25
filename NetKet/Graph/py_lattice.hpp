@@ -103,6 +103,34 @@ void AddLattice(py::module& subm) {
 
 
           )EOF")
+      .def_static(
+          "hexagonal",
+          [](std::vector<int> extent, std::vector<bool> pbc) -> Lattice {
+            std::vector<std::vector<double>> basis_vectors(
+                2, std::vector<double>(2));
+            std::vector<std::vector<double>> atoms_coord(
+                1, std::vector<double>(2));
+            basis_vectors[0][0] = 1.;
+            basis_vectors[0][1] = 0.;
+            basis_vectors[1][0] = 0.5;
+            basis_vectors[1][1] = 0.5 * std::sqrt(3);
+            atoms_coord[0][0] = 0;
+            atoms_coord[0][1] = 0;
+
+            return Lattice(basis_vectors, extent, pbc, atoms_coord);
+          },
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
+          R"EOF(
+              Member function constructing a hexagonal lattice in 2 dimensions.
+
+              Args:
+                  extent: The number of copies of the unit cell.
+                  pbc: If ``True`` then the constructed lattice
+                  will have periodic boundary conditions, otherwise
+                  open boundary conditions are imposed (default=``True``).
+
+
+              )EOF")
       .def("atom_label", &Lattice::AtomLabel, py::arg("site"), R"EOF(
           Member function returning the atom label indicating which of the unit cell atoms is located at a given a site index.
 
