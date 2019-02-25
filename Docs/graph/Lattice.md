@@ -41,8 +41,25 @@ Member function returning the atom label indicating which of the unit cell atoms
 |--------|----|---------------|
 |site    |int |The site index.|
 
+### centered_rectangular
+Member function constructing a centered rectangular lattice in 2 dimensions.
+
+|Argument|    Type     |              Description               |
+|--------|-------------|----------------------------------------|
+|extent  |List[int]    |The number of copies of the unit cell.  |
+|pbc     |List[bool]=[]|If ``True`` then the constructed lattice|
+
 ### hexagonal
-Member function constructing a hexagonal lattice in 2 dimensions.
+Member function constructing a hexagonal lattice in 2 or 3 dimensions.
+
+|Argument|    Type     |                  Description                  |
+|--------|-------------|-----------------------------------------------|
+|n_dim   |int          |The dimension of the lattice. It can be 2 or 3.|
+|extent  |List[int]    |The number of copies of the unit cell.         |
+|pbc     |List[bool]=[]|If ``True`` then the constructed lattice       |
+
+### honeycomb
+Member function constructing a honeycomb lattice in 2 dimensions.
 
 |Argument|    Type     |              Description               |
 |--------|-------------|----------------------------------------|
@@ -56,6 +73,31 @@ dimension.
 |Argument|    Type     |              Description               |
 |--------|-------------|----------------------------------------|
 |n_dim   |int          |The dimension of the lattice.           |
+|extent  |List[int]    |The number of copies of the unit cell.  |
+|pbc     |List[bool]=[]|If ``True`` then the constructed lattice|
+
+### kagome
+Member function constructing a kagome lattice in 2 dimensions.
+
+|Argument|    Type     |              Description               |
+|--------|-------------|----------------------------------------|
+|extent  |List[int]    |The number of copies of the unit cell.  |
+|pbc     |List[bool]=[]|If ``True`` then the constructed lattice|
+
+### monoclinic
+Member function constructing a monoclinic lattice in 2 dimensions.
+
+|Argument|    Type     |              Description               |
+|--------|-------------|----------------------------------------|
+|extent  |List[int]    |The number of copies of the unit cell.  |
+|pbc     |List[bool]=[]|If ``True`` then the constructed lattice|
+
+### orthorhombic
+### rectangular
+Member function constructing a rectangular lattice in 2 dimensions.
+
+|Argument|    Type     |              Description               |
+|--------|-------------|----------------------------------------|
 |extent  |List[int]    |The number of copies of the unit cell.  |
 |pbc     |List[bool]=[]|If ``True`` then the constructed lattice|
 
@@ -89,6 +131,14 @@ Constructs a square 2X2 lattice without periodic boundary conditions and prints 
  [1, 1]
 
   ```
+
+### triclinic
+Member function constructing a triclinic lattice in 3 dimensions.
+
+|Argument|    Type     |              Description               |
+|--------|-------------|----------------------------------------|
+|extent  |List[int]    |The number of copies of the unit cell.  |
+|pbc     |List[bool]=[]|If ``True`` then the constructed lattice|
 
 ### vector_to_coord
 Member function returning the coordinates of a given atom characterized by a

@@ -68,69 +68,6 @@ void AddLattice(py::module& subm) {
       int: The dimension of the lattice.)EOF")
       .def_property_readonly("basis_vectors", &Lattice::BasisVectors, R"EOF(
       list[list]: The basis vectors of the lattice.)EOF")
-
-      .def_static("hypercube",
-                  [](int dim, std::vector<int> extent,
-                     std::vector<bool> pbc) -> Lattice {
-                    std::vector<std::vector<double>> basis_vectors(
-                        dim, std::vector<double>(dim));
-                    std::vector<std::vector<double>> atoms_coord(
-                        1, std::vector<double>(dim));
-                    for (int i = 0; i < dim; i++) {
-                      atoms_coord[0][i] = 0;
-                      for (int j = 0; j < dim; j++) {
-                        if (i == j) {
-                          basis_vectors[i][j] = 1;
-                        } else {
-                          basis_vectors[i][j] = 0;
-                        }
-                      }
-                    }
-                    return Lattice(basis_vectors, extent, pbc, atoms_coord);
-                  },
-                  py::arg("n_dim"), py::arg("extent"),
-                  py::arg("pbc") = std::vector<bool>(0),
-                  R"EOF(
-          Member function constructing a hypercubic lattice of arbitrary
-          dimension.
-
-          Args:
-              n_dim: The dimension of the lattice.
-              extent: The number of copies of the unit cell.
-              pbc: If ``True`` then the constructed lattice
-              will have periodic boundary conditions, otherwise
-              open boundary conditions are imposed (default=``True``).
-
-
-          )EOF")
-      .def_static(
-          "hexagonal",
-          [](std::vector<int> extent, std::vector<bool> pbc) -> Lattice {
-            std::vector<std::vector<double>> basis_vectors(
-                2, std::vector<double>(2));
-            std::vector<std::vector<double>> atoms_coord(
-                1, std::vector<double>(2));
-            basis_vectors[0][0] = 1.;
-            basis_vectors[0][1] = 0.;
-            basis_vectors[1][0] = 0.5;
-            basis_vectors[1][1] = 0.5 * std::sqrt(3);
-            atoms_coord[0][0] = 0;
-            atoms_coord[0][1] = 0;
-
-            return Lattice(basis_vectors, extent, pbc, atoms_coord);
-          },
-          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
-          R"EOF(
-              Member function constructing a hexagonal lattice in 2 dimensions.
-
-              Args:
-                  extent: The number of copies of the unit cell.
-                  pbc: If ``True`` then the constructed lattice
-                  will have periodic boundary conditions, otherwise
-                  open boundary conditions are imposed (default=``True``).
-
-
-              )EOF")
       .def("atom_label", &Lattice::AtomLabel, py::arg("site"), R"EOF(
           Member function returning the atom label indicating which of the unit cell atoms is located at a given a site index.
 
@@ -183,7 +120,350 @@ void AddLattice(py::module& subm) {
 
             Args:
                 site_vector: The site vector.
-            )EOF");
+            )EOF")
+      // Built-in lattices
+      .def_static("hypercube",
+                  [](int dim, std::vector<int> extent,
+                     std::vector<bool> pbc) -> Lattice {
+                    std::vector<std::vector<double>> basis_vectors(
+                        dim, std::vector<double>(dim));
+                    std::vector<std::vector<double>> atoms_coord(
+                        1, std::vector<double>(dim));
+                    for (int i = 0; i < dim; i++) {
+                      atoms_coord[0][i] = 0;
+                      for (int j = 0; j < dim; j++) {
+                        if (i == j) {
+                          basis_vectors[i][j] = 1;
+                        } else {
+                          basis_vectors[i][j] = 0;
+                        }
+                      }
+                    }
+                    return Lattice(basis_vectors, extent, pbc, atoms_coord);
+                  },
+                  py::arg("n_dim"), py::arg("extent"),
+                  py::arg("pbc") = std::vector<bool>(0),
+                  R"EOF(
+                Member function constructing a hypercubic lattice of arbitrary
+                dimension.
+
+                Args:
+                    n_dim: The dimension of the lattice.
+                    extent: The number of copies of the unit cell.
+                    pbc: If ``True`` then the constructed lattice
+                    will have periodic boundary conditions, otherwise
+                    open boundary conditions are imposed (default=``True``).
+
+
+                )EOF")
+
+      .def_static(
+          "monoclinic",
+          [](std::vector<int> extent, std::vector<bool> pbc) -> Lattice {
+            std::vector<std::vector<double>> basis_vectors(
+                2, std::vector<double>(2));
+            std::vector<std::vector<double>> atoms_coord(
+                1, std::vector<double>(2));
+            basis_vectors[0][0] = 1.;
+            basis_vectors[0][1] = 0.;
+            basis_vectors[1][0] = 1. / 3.;
+            basis_vectors[1][1] = 2. / 3.;
+            atoms_coord[0][0] = 0;
+            atoms_coord[0][1] = 0;
+
+            return Lattice(basis_vectors, extent, pbc, atoms_coord);
+          },
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
+          R"EOF(
+      Member function constructing a monoclinic lattice in 2 dimensions.
+
+      Args:
+          extent: The number of copies of the unit cell.
+          pbc: If ``True`` then the constructed lattice
+          will have periodic boundary conditions, otherwis
+          open boundary conditions are imposed (default=``True``).
+
+      )EOF")
+      .def_static(
+          "rectangular",
+          [](std::vector<int> extent, std::vector<bool> pbc) -> Lattice {
+            std::vector<std::vector<double>> basis_vectors(
+                2, std::vector<double>(2));
+            std::vector<std::vector<double>> atoms_coord(
+                1, std::vector<double>(2));
+            basis_vectors[0][0] = 1.;
+            basis_vectors[0][1] = 0.;
+            basis_vectors[1][0] = 0.;
+            basis_vectors[1][1] = 2.;
+            atoms_coord[0][0] = 0;
+            atoms_coord[0][1] = 0;
+
+            return Lattice(basis_vectors, extent, pbc, atoms_coord);
+          },
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
+          R"EOF(
+      Member function constructing a rectangular lattice in 2 dimensions.
+
+      Args:
+          extent: The number of copies of the unit cell.
+          pbc: If ``True`` then the constructed lattice
+          will have periodic boundary conditions, otherwise
+          open boundary conditions are imposed (default=``True``).
+
+      )EOF")
+      .def_static(
+          "centered_rectangular",
+          [](std::vector<int> extent, std::vector<bool> pbc) -> Lattice {
+            std::vector<std::vector<double>> basis_vectors(
+                2, std::vector<double>(2));
+            std::vector<std::vector<double>> atoms_coord(
+                2, std::vector<double>(2));
+            basis_vectors[0][0] = 1.;
+            basis_vectors[0][1] = 0.;
+            basis_vectors[1][0] = 0.;
+            basis_vectors[1][1] = 2.;
+            atoms_coord[0][0] = 0.;
+            atoms_coord[0][1] = 0.;
+            atoms_coord[1][0] = 0.5;
+            atoms_coord[1][1] = 1.;
+
+            return Lattice(basis_vectors, extent, pbc, atoms_coord);
+          },
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
+          R"EOF(
+      Member function constructing a centered rectangular lattice in 2 dimensions.
+
+      Args:
+          extent: The number of copies of the unit cell.
+          pbc: If ``True`` then the constructed lattice
+          will have periodic boundary conditions, otherwise
+          open boundary conditions are imposed (default=``True``).
+
+      )EOF")
+
+      .def_static("hexagonal",
+                  [](int dim, std::vector<int> extent,
+                     std::vector<bool> pbc) -> Lattice {
+                    std::vector<std::vector<double>> basis_vectors(
+                        dim, std::vector<double>(dim));
+                    std::vector<std::vector<double>> atoms_coord(
+                        1, std::vector<double>(dim));
+                    if (dim == 2) {
+                      basis_vectors[0][0] = 1.;
+                      basis_vectors[0][1] = 0.;
+                      basis_vectors[1][0] = 0.5;
+                      basis_vectors[1][1] = 0.5 * std::sqrt(3);
+                      atoms_coord[0][0] = 0;
+                      atoms_coord[0][1] = 0;
+                    } else if (dim == 3) {
+                      basis_vectors[0][0] = 1.;
+                      basis_vectors[0][1] = 0.;
+                      basis_vectors[0][2] = 0.;
+                      basis_vectors[1][0] = 0.5;
+                      basis_vectors[1][1] = 0.5 * std::sqrt(3);
+                      basis_vectors[1][2] = 0.;
+                      basis_vectors[2][0] = 0.;
+                      basis_vectors[2][1] = 0.;
+                      basis_vectors[2][2] = 1.;
+                      atoms_coord[0][0] = 0;
+                      atoms_coord[0][1] = 0;
+                      atoms_coord[0][2] = 0;
+                    } else {
+                      throw InvalidInputError{
+                          "Lattice.hexagonal initializer works only in 2 and 3 "
+                          "dimensions.\n"};
+                    }
+                    return Lattice(basis_vectors, extent, pbc, atoms_coord);
+                  },
+                  py::arg("n_dim"), py::arg("extent"),
+                  py::arg("pbc") = std::vector<bool>(0),
+                  R"EOF(
+    Member function constructing a hexagonal lattice in 2 or 3 dimensions.
+
+    Args:
+        n_dim: The dimension of the lattice. It can be 2 or 3.
+        extent: The number of copies of the unit cell.
+        pbc: If ``True`` then the constructed lattice
+        will have periodic boundary conditions, otherwise
+        open boundary conditions are imposed (default=``True``).
+
+    )EOF")
+
+      .def_static(
+          "honeycomb",
+          [](std::vector<int> extent, std::vector<bool> pbc) -> Lattice {
+            std::vector<std::vector<double>> basis_vectors(
+                2, std::vector<double>(2));
+            std::vector<std::vector<double>> atoms_coord(
+                2, std::vector<double>(2));
+            basis_vectors[0][0] = 1.5;
+            basis_vectors[0][1] = std::sqrt(3) * 0.5;
+            basis_vectors[1][0] = 0.;
+            basis_vectors[1][1] = std::sqrt(3);
+            atoms_coord[0][0] = 0.;
+            atoms_coord[0][1] = 0.;
+            atoms_coord[1][0] = 1.;
+            atoms_coord[1][1] = 0.;
+
+            return Lattice(basis_vectors, extent, pbc, atoms_coord);
+          },
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
+          R"EOF(
+    Member function constructing a honeycomb lattice in 2 dimensions.
+
+    Args:
+        extent: The number of copies of the unit cell.
+        pbc: If ``True`` then the constructed lattice
+        will have periodic boundary conditions, otherwise
+        open boundary conditions are imposed (default=``True``).
+
+    )EOF")
+
+      .def_static(
+          "kagome",
+          [](std::vector<int> extent, std::vector<bool> pbc) -> Lattice {
+            std::vector<std::vector<double>> basis_vectors(
+                2, std::vector<double>(2));
+            std::vector<std::vector<double>> atoms_coord(
+                3, std::vector<double>(2));
+
+            basis_vectors[0][0] = 2.;
+            basis_vectors[0][1] = 0.;
+            basis_vectors[1][0] = 1.;
+            basis_vectors[1][1] = std::sqrt(3);
+            atoms_coord[0][0] = 0.;
+            atoms_coord[0][1] = 0.;
+            atoms_coord[1][0] = 0.5;
+            atoms_coord[1][1] = std::sqrt(3) * 0.5;
+            atoms_coord[2][0] = 1.;
+            atoms_coord[2][1] = 0.;
+
+            return Lattice(basis_vectors, extent, pbc, atoms_coord);
+          },
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
+          R"EOF(
+  Member function constructing a kagome lattice in 2 dimensions.
+
+  Args:
+      extent: The number of copies of the unit cell.
+      pbc: If ``True`` then the constructed lattice
+      will have periodic boundary conditions, otherwise
+      open boundary conditions are imposed (default=``True``).
+
+  )EOF")
+      .def_static(
+          "triclinic",
+          [](std::vector<int> extent, std::vector<bool> pbc) -> Lattice {
+            std::vector<std::vector<double>> basis_vectors(
+                3, std::vector<double>(3));
+            std::vector<std::vector<double>> atoms_coord(
+                1, std::vector<double>(3));
+
+            basis_vectors[0][0] = 1.;
+            basis_vectors[0][1] = 0.;
+            basis_vectors[0][2] = 0.;
+            basis_vectors[1][0] = -0.5;
+            basis_vectors[1][1] = 0.;
+            basis_vectors[1][2] = 0.5;
+            basis_vectors[2][0] = 1.;
+            basis_vectors[2][1] = 1.;
+            basis_vectors[2][2] = 0.;
+            atoms_coord[0][0] = 0.;
+            atoms_coord[0][1] = 0.;
+            atoms_coord[0][2] = 0.;
+
+            return Lattice(basis_vectors, extent, pbc, atoms_coord);
+          },
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
+          R"EOF(
+      Member function constructing a triclinic lattice in 3 dimensions.
+
+      Args:
+          extent: The number of copies of the unit cell.
+          pbc: If ``True`` then the constructed lattice
+          will have periodic boundary conditions, otherwise
+          open boundary conditions are imposed (default=``True``).
+
+    )EOF")
+
+      .def_static("orthorhombic",
+                  [](std::vector<int> extent, std::vector<bool> pbc,
+                     std::string type) -> Lattice {
+                    std::vector<std::vector<double>> basis_vectors(
+                        3, std::vector<double>(3));
+                    int natoms;
+                    if (type.empty()) type == "primitive";
+                    if (type == "primitive") {
+                      natoms = 1;
+                    } else if (type == "base") {
+                      natoms = 2;
+                    } else if (type == "bc") {
+                      natoms = 2;
+                    } else if (type == "fc") {
+                      natoms = 4;
+                      ;
+                    }
+                    std::vector<std::vector<double>> atoms_coord(
+                        natoms, std::vector<double>(3));
+
+                    basis_vectors[0][0] = 1.;
+                    basis_vectors[0][1] = 0.;
+                    basis_vectors[0][2] = 0.;
+                    basis_vectors[1][0] = 0.;
+                    basis_vectors[1][1] = 2.;
+                    basis_vectors[1][2] = 0.;
+                    basis_vectors[2][0] = 0.;
+                    basis_vectors[2][1] = 0.;
+                    basis_vectors[2][2] = 0.5;
+                    if (type == "primitive") {
+                      atoms_coord[0][0] = 0;
+                      atoms_coord[0][1] = 0;
+                      atoms_coord[0][2] = 0;
+                    } else if (type == "base") {
+                      atoms_coord[0][0] = 0;
+                      atoms_coord[0][1] = 0;
+                      atoms_coord[0][2] = 0;
+                      atoms_coord[1][0] = 0.5;
+                      atoms_coord[1][1] = 1.;
+                      atoms_coord[1][2] = 0.;
+                    } else if (type == "bc") {
+                      atoms_coord[0][0] = 0;
+                      atoms_coord[0][1] = 0;
+                      atoms_coord[0][2] = 0;
+                      atoms_coord[1][0] = 0.5;
+                      atoms_coord[1][1] = 1.;
+                      atoms_coord[1][2] = 0.25;
+                    } else if (type == "fc") {
+                      atoms_coord[0][0] = 0;
+                      atoms_coord[0][1] = 0;
+                      atoms_coord[0][2] = 0;
+                      atoms_coord[1][0] = 0.5;
+                      atoms_coord[1][1] = 1.;
+                      atoms_coord[1][2] = 0.;
+                      atoms_coord[2][0] = 0.5;
+                      atoms_coord[2][1] = 0.;
+                      atoms_coord[2][2] = 0.25;
+                      atoms_coord[3][0] = 0.;
+                      atoms_coord[3][1] = 1.;
+                      atoms_coord[3][2] = 0.25;
+                    }
+
+                    return Lattice(basis_vectors, extent, pbc, atoms_coord);
+                  },
+                  py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
+                  py::arg("type") =
+                      "primitive"
+                      R"EOF(
+    Member function constructing an orthorhombic lattice in 3 dimensions.
+
+    Args:
+        extent: The number of copies of the unit cell.
+        pbc: If ``True`` then the constructed lattice
+        will have periodic boundary conditions, otherwise
+        open boundary conditions are imposed (default=``True``).
+        type: Wheter the lattice is primitive (default), base-centered (``base``), body-centered (``bc``) or face-centered (``fc``).
+
+    )EOF");
 }
 }  // namespace netket
 #endif
