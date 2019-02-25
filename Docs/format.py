@@ -46,7 +46,7 @@ def format_class(cl):
     methods = inspect.getmembers(cl, predicate=inspect.isroutine)
     for method in methods:
         # skip special methods (__init__ is taken care of above)
-        if(method[0].startswith('__') or method[0]=='Hypercube'):
+        if(method[0].startswith('__')):
             continue
 
         docs = method[1].__doc__

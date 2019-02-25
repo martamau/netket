@@ -142,29 +142,33 @@ void AddGraphModule(py::module& m) {
       .def_property_readonly("automorphisms", &AbstractGraph::SymmetryTable,
                              R"EOF(
       list[list]: The automorphisms of the graph,
-          including translation symmetries only.)EOF")
-      .def_static("Hypercube",
-                  [](int length, int n_dim, bool pbc) -> Lattice {
-                    std::vector<int> extent(n_dim, length);
-                    std::vector<bool> pbc_vec(n_dim, pbc);
-                    std::vector<std::vector<double>> basis_vectors(
-                        n_dim, std::vector<double>(n_dim));
-                    std::vector<std::vector<double>> atoms_coord(
-                        1, std::vector<double>(n_dim));
-                    for (int i = 0; i < n_dim; i++) {
-                      atoms_coord[0][i] = 0;
-                      for (int j = 0; j < n_dim; j++) {
-                        if (i == j) {
-                          basis_vectors[i][j] = 1;
-                        } else {
-                          basis_vectors[i][j] = 0;
-                        }
-                      }
-                    }
-                    return Lattice(basis_vectors, extent, pbc_vec, atoms_coord);
-                  },
-                  py::arg("length"), py::arg("n_dim"), py::arg("pbc") = true,
-                  R"EOF(
+          including translation symmetries only.)EOF");
+  subm.def("Hypercube",
+           [](int length, int n_dim, bool pbc) -> Lattice {
+             std::vector<int> extent(n_dim, length);
+             std::vector<bool> pbc_vec(n_dim, pbc);
+             std::vector<std::vector<double>> basis_vectors(
+                 n_dim, std::vector<double>(n_dim));
+             std::vector<std::vector<double>> atoms_coord(
+                 1, std::vector<double>(n_dim));
+             // DEPRECATED constructor
+             WarningMessage() << "Use of graph.Hypercube initializer is "
+                                 "deprecated.\n Please use the dedicated "
+                                 "Lattice.hypercube initializer.\n";
+             for (int i = 0; i < n_dim; i++) {
+               atoms_coord[0][i] = 0;
+               for (int j = 0; j < n_dim; j++) {
+                 if (i == j) {
+                   basis_vectors[i][j] = 1;
+                 } else {
+                   basis_vectors[i][j] = 0;
+                 }
+               }
+             }
+             return Lattice(basis_vectors, extent, pbc_vec, atoms_coord);
+           },
+           py::arg("length"), py::arg("n_dim"), py::arg("pbc") = true,
+           R"EOF(
             Member function constructing a hypercubic lattice of arbitrary dimension.
 
             Args:
