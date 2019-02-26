@@ -153,7 +153,7 @@ void AddGraphModule(py::module& m) {
                  1, std::vector<double>(n_dim));
              // DEPRECATED constructor
              WarningMessage() << "Use of graph.Hypercube initializer is "
-                                 "deprecated.\n Please use the dedicated "
+                                 "deprecated. Please use the dedicated "
                                  "Lattice.hypercube initializer.\n";
              for (int i = 0; i < n_dim; i++) {
                atoms_coord[0][i] = 0;

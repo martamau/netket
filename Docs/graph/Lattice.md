@@ -17,7 +17,7 @@ Constructs a new ``Lattice`` given its side length and the features of the unit 
 |-------------|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
 |basis_vectors|List[List[float]]   |The basis vectors of the unit cell.                                                                                                                |
 |extent       |List[int]           |The number of copies of the unit cell.                                                                                                             |
-|pbc          |List[bool]=[False]  |If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).|
+|pbc          |List[bool]=[]       |If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).|
 |atoms_coord  |List[List[float]]=[]|The coordinates of different atoms in the unit cell (default=one atom at the origin).                                                              |
 
 ### Examples
@@ -33,7 +33,7 @@ Constructs a rectangular 3X4 lattice with periodic boundary conditions.
 
 
 
-## Class Methods 
+## Class Methods
 ### atom_label
 Member function returning the atom label indicating which of the unit cell atoms is located at a given a site index.
 
@@ -44,70 +44,70 @@ Member function returning the atom label indicating which of the unit cell atoms
 ### centered_rectangular
 Member function constructing a centered rectangular lattice in 2 dimensions.
 
-|Argument|       Type       |              Description               |
-|--------|------------------|----------------------------------------|
-|extent  |List[int]         |The number of copies of the unit cell.  |
-|pbc     |List[bool]=[False]|If ``True`` then the constructed lattice|
+|Argument|    Type     |                                                                    Description                                                                    |
+|--------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+|extent  |List[int]    |The number of copies of the unit cell.                                                                                                             |
+|pbc     |List[bool]=[]|If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).|
 
 ### hexagonal
 Member function constructing a hexagonal lattice in 2 or 3 dimensions.
 
-|Argument|       Type       |                  Description                  |
-|--------|------------------|-----------------------------------------------|
-|n_dim   |int               |The dimension of the lattice. It can be 2 or 3.|
-|extent  |List[int]         |The number of copies of the unit cell.         |
-|pbc     |List[bool]=[False]|If ``True`` then the constructed lattice       |
+|Argument|    Type     |                                                                    Description                                                                    |
+|--------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+|n_dim   |int          |The dimension of the lattice. It can be 2 or 3.                                                                                                    |
+|extent  |List[int]    |The number of copies of the unit cell.                                                                                                             |
+|pbc     |List[bool]=[]|If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).|
 
 ### honeycomb
 Member function constructing a honeycomb lattice in 2 dimensions.
 
-|Argument|       Type       |              Description               |
-|--------|------------------|----------------------------------------|
-|extent  |List[int]         |The number of copies of the unit cell.  |
-|pbc     |List[bool]=[False]|If ``True`` then the constructed lattice|
+|Argument|    Type     |                                                                    Description                                                                    |
+|--------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+|extent  |List[int]    |The number of copies of the unit cell.                                                                                                             |
+|pbc     |List[bool]=[]|If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).|
 
 ### hypercube
 Member function constructing a hypercubic lattice of arbitrary
 dimension.
 
-|Argument|       Type       |              Description               |
-|--------|------------------|----------------------------------------|
-|n_dim   |int               |The dimension of the lattice.           |
-|extent  |List[int]         |The number of copies of the unit cell.  |
-|pbc     |List[bool]=[False]|If ``True`` then the constructed lattice|
+|Argument|    Type     |                                                                    Description                                                                    |
+|--------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+|n_dim   |int          |The dimension of the lattice.                                                                                                                      |
+|extent  |List[int]    |The number of copies of the unit cell.                                                                                                             |
+|pbc     |List[bool]=[]|If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).|
 
 ### kagome
 Member function constructing a kagome lattice in 2 dimensions.
 
-|Argument|       Type       |              Description               |
-|--------|------------------|----------------------------------------|
-|extent  |List[int]         |The number of copies of the unit cell.  |
-|pbc     |List[bool]=[False]|If ``True`` then the constructed lattice|
+|Argument|    Type     |                                                                    Description                                                                    |
+|--------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+|extent  |List[int]    |The number of copies of the unit cell.                                                                                                             |
+|pbc     |List[bool]=[]|If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).|
 
 ### monoclinic
 Member function constructing a monoclinic lattice in 2 dimensions.
 
-|Argument|       Type       |              Description               |
-|--------|------------------|----------------------------------------|
-|extent  |List[int]         |The number of copies of the unit cell.  |
-|pbc     |List[bool]=[False]|If ``True`` then the constructed lattice|
+|Argument|    Type     |                                                                    Description                                                                    |
+|--------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+|extent  |List[int]    |The number of copies of the unit cell.                                                                                                             |
+|pbc     |List[bool]=[]|If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).|
 
 ### orthorhombic
 Member function constructing an orthorhombic lattice in 3 dimensions.
 
-|Argument|       Type       |                                                     Description                                                      |
-|--------|------------------|----------------------------------------------------------------------------------------------------------------------|
-|extent  |List[int]         |The number of copies of the unit cell.                                                                                |
-|pbc     |List[bool]=[False]|If ``True`` then the constructed lattice                                                                              |
-|type    |str='primitive'   |Wheter the lattice is primitive (default), base-centered (``base``), body-centered (``bc``) or face-centered (``fc``).|
+|Argument|     Type      |                                                                    Description                                                                    |
+|--------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+|extent  |List[int]      |The number of copies of the unit cell.                                                                                                             |
+|pbc     |List[bool]=[]  |If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).|
+|type    |str='primitive'|Wheter the lattice is primitive (default), base-centered (``base``), body-centered (``bc``) or face-centered (``fc``).                             |
 
 ### rectangular
 Member function constructing a rectangular lattice in 2 dimensions.
 
-|Argument|       Type       |              Description               |
-|--------|------------------|----------------------------------------|
-|extent  |List[int]         |The number of copies of the unit cell.  |
-|pbc     |List[bool]=[False]|If ``True`` then the constructed lattice|
+|Argument|    Type     |                                                                    Description                                                                    |
+|--------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+|extent  |List[int]    |The number of copies of the unit cell.                                                                                                             |
+|pbc     |List[bool]=[]|If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).|
 
 ### site_to_coord
 Member function returning the coordinates of a given site index.
@@ -143,10 +143,10 @@ Constructs a square 2X2 lattice without periodic boundary conditions and prints 
 ### triclinic
 Member function constructing a triclinic lattice in 3 dimensions.
 
-|Argument|       Type       |              Description               |
-|--------|------------------|----------------------------------------|
-|extent  |List[int]         |The number of copies of the unit cell.  |
-|pbc     |List[bool]=[False]|If ``True`` then the constructed lattice|
+|Argument|    Type     |                                                                    Description                                                                    |
+|--------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+|extent  |List[int]    |The number of copies of the unit cell.                                                                                                             |
+|pbc     |List[bool]=[]|If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).|
 
 ### vector_to_coord
 Member function returning the coordinates of a given atom characterized by a
@@ -178,4 +178,3 @@ Member function returning the site index corresponding to a given site vector.
 |is_connected  |       bool      | Whether the graph is connected.                                                                                           |
 |n_dim         |       int       | The dimension of the lattice.                                                                                             |
 |n_sites       |       int       | The number of vertices in the graph.                                                                                      |
-

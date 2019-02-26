@@ -36,7 +36,7 @@ void AddLattice(py::module& subm) {
       .def(py::init<std::vector<std::vector<double>>, std::vector<int>,
                     std::vector<bool>, std::vector<std::vector<double>>>(),
            py::arg("basis_vectors"), py::arg("extent"),
-           py::arg("pbc") = std::vector<bool>(true),
+           py::arg("pbc") = std::vector<bool>(0),
            py::arg("atoms_coord") = std::vector<std::vector<double>>(0),
            R"EOF(
                              Constructs a new ``Lattice`` given its side length and the features of the unit cell.
@@ -142,20 +142,15 @@ void AddLattice(py::module& subm) {
                     return Lattice(basis_vectors, extent, pbc, atoms_coord);
                   },
                   py::arg("n_dim"), py::arg("extent"),
-                  py::arg("pbc") = std::vector<bool>(true),
-                  R"EOF(
+                  py::arg("pbc") = std::vector<bool>(0), R"EOF(
                 Member function constructing a hypercubic lattice of arbitrary
                 dimension.
 
-                Args:
-                    n_dim: The dimension of the lattice.
-                    extent: The number of copies of the unit cell.
-                    pbc: If ``True`` then the constructed lattice
-                    will have periodic boundary conditions, otherwise
-                    open boundary conditions are imposed (default=``True``).
-
-
-                )EOF")
+                  Args:
+                      n_dim: The dimension of the lattice.
+                      extent: The number of copies of the unit cell.
+                      pbc: If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).
+                  )EOF")
 
       .def_static(
           "monoclinic",
@@ -170,20 +165,17 @@ void AddLattice(py::module& subm) {
             basis_vectors[1][1] = 2. / 3.;
             atoms_coord[0][0] = 0;
             atoms_coord[0][1] = 0;
-
             return Lattice(basis_vectors, extent, pbc, atoms_coord);
           },
-          py::arg("extent"), py::arg("pbc") = std::vector<bool>(true),
-          R"EOF(
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0), R"EOF(
       Member function constructing a monoclinic lattice in 2 dimensions.
 
-      Args:
-          extent: The number of copies of the unit cell.
-          pbc: If ``True`` then the constructed lattice
-          will have periodic boundary conditions, otherwis
-          open boundary conditions are imposed (default=``True``).
+        Args:
+            extent: The number of copies of the unit cell.
+            pbc: If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).
 
-      )EOF")
+
+        )EOF")
       .def_static(
           "rectangular",
           [](std::vector<int> extent, std::vector<bool> pbc) -> Lattice {
@@ -200,17 +192,16 @@ void AddLattice(py::module& subm) {
 
             return Lattice(basis_vectors, extent, pbc, atoms_coord);
           },
-          py::arg("extent"), py::arg("pbc") = std::vector<bool>(true),
-          R"EOF(
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0), R"EOF(
       Member function constructing a rectangular lattice in 2 dimensions.
 
-      Args:
-          extent: The number of copies of the unit cell.
-          pbc: If ``True`` then the constructed lattice
-          will have periodic boundary conditions, otherwise
-          open boundary conditions are imposed (default=``True``).
+        Args:
+            extent: The number of copies of the unit cell.
+            pbc: If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).
 
-      )EOF")
+
+        )EOF")
+
       .def_static(
           "centered_rectangular",
           [](std::vector<int> extent, std::vector<bool> pbc) -> Lattice {
@@ -229,17 +220,15 @@ void AddLattice(py::module& subm) {
 
             return Lattice(basis_vectors, extent, pbc, atoms_coord);
           },
-          py::arg("extent"), py::arg("pbc") = std::vector<bool>(true),
-          R"EOF(
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0), R"EOF(
       Member function constructing a centered rectangular lattice in 2 dimensions.
 
-      Args:
-          extent: The number of copies of the unit cell.
-          pbc: If ``True`` then the constructed lattice
-          will have periodic boundary conditions, otherwise
-          open boundary conditions are imposed (default=``True``).
+        Args:
+            extent: The number of copies of the unit cell.
+            pbc: If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).
 
-      )EOF")
+
+        )EOF")
 
       .def_static("hexagonal",
                   [](int dim, std::vector<int> extent,
@@ -276,18 +265,16 @@ void AddLattice(py::module& subm) {
                     return Lattice(basis_vectors, extent, pbc, atoms_coord);
                   },
                   py::arg("n_dim"), py::arg("extent"),
-                  py::arg("pbc") = std::vector<bool>(true),
-                  R"EOF(
+                  py::arg("pbc") = std::vector<bool>(0), R"EOF(
     Member function constructing a hexagonal lattice in 2 or 3 dimensions.
 
-    Args:
-        n_dim: The dimension of the lattice. It can be 2 or 3.
-        extent: The number of copies of the unit cell.
-        pbc: If ``True`` then the constructed lattice
-        will have periodic boundary conditions, otherwise
-        open boundary conditions are imposed (default=``True``).
+      Args:
+          n_dim: The dimension of the lattice. It can be 2 or 3.
+          extent: The number of copies of the unit cell.
+          pbc: If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).
 
-    )EOF")
+
+      )EOF")
 
       .def_static(
           "honeycomb",
@@ -307,17 +294,15 @@ void AddLattice(py::module& subm) {
 
             return Lattice(basis_vectors, extent, pbc, atoms_coord);
           },
-          py::arg("extent"), py::arg("pbc") = std::vector<bool>(true),
-          R"EOF(
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0), R"EOF(
     Member function constructing a honeycomb lattice in 2 dimensions.
 
-    Args:
-        extent: The number of copies of the unit cell.
-        pbc: If ``True`` then the constructed lattice
-        will have periodic boundary conditions, otherwise
-        open boundary conditions are imposed (default=``True``).
+      Args:
+          extent: The number of copies of the unit cell.
+          pbc: If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).
 
-    )EOF")
+
+      )EOF")
 
       .def_static(
           "kagome",
@@ -340,17 +325,15 @@ void AddLattice(py::module& subm) {
 
             return Lattice(basis_vectors, extent, pbc, atoms_coord);
           },
-          py::arg("extent"), py::arg("pbc") = std::vector<bool>(true),
-          R"EOF(
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0), R"EOF(
   Member function constructing a kagome lattice in 2 dimensions.
 
-  Args:
-      extent: The number of copies of the unit cell.
-      pbc: If ``True`` then the constructed lattice
-      will have periodic boundary conditions, otherwise
-      open boundary conditions are imposed (default=``True``).
+    Args:
+        extent: The number of copies of the unit cell.
+        pbc: If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).
 
-  )EOF")
+
+    )EOF")
       .def_static(
           "triclinic",
           [](std::vector<int> extent, std::vector<bool> pbc) -> Lattice {
@@ -374,17 +357,15 @@ void AddLattice(py::module& subm) {
 
             return Lattice(basis_vectors, extent, pbc, atoms_coord);
           },
-          py::arg("extent"), py::arg("pbc") = std::vector<bool>(true),
-          R"EOF(
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0), R"EOF(
       Member function constructing a triclinic lattice in 3 dimensions.
 
-      Args:
-          extent: The number of copies of the unit cell.
-          pbc: If ``True`` then the constructed lattice
-          will have periodic boundary conditions, otherwise
-          open boundary conditions are imposed (default=``True``).
+        Args:
+            extent: The number of copies of the unit cell.
+            pbc: If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).
 
-    )EOF")
+
+        )EOF")
 
       .def_static("orthorhombic",
                   [](std::vector<int> extent, std::vector<bool> pbc,
@@ -449,19 +430,16 @@ void AddLattice(py::module& subm) {
 
                     return Lattice(basis_vectors, extent, pbc, atoms_coord);
                   },
-                  py::arg("extent"), py::arg("pbc") = std::vector<bool>(true),
-                  py::arg("type") = "primitive",
-                  R"EOF(
+                  py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
+                  py::arg("type") = "primitive", R"EOF(
     Member function constructing an orthorhombic lattice in 3 dimensions.
 
-    Args:
-        extent: The number of copies of the unit cell.
-        pbc: If ``True`` then the constructed lattice
-        will have periodic boundary conditions, otherwise
-        open boundary conditions are imposed (default=``True``).
-        type: Wheter the lattice is primitive (default), base-centered (``base``), body-centered (``bc``) or face-centered (``fc``).
+      Args:
+          extent: The number of copies of the unit cell.
+          pbc: If ``True`` then the constructed lattice will have periodic boundary conditions, otherwise open boundary conditions are imposed (default=``True``).
+          type: Wheter the lattice is primitive (default), base-centered (``base``), body-centered (``bc``) or face-centered (``fc``).
 
-    )EOF");
+      )EOF");
 }
 }  // namespace netket
 #endif
