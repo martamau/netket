@@ -36,7 +36,7 @@ void AddLattice(py::module& subm) {
       .def(py::init<std::vector<std::vector<double>>, std::vector<int>,
                     std::vector<bool>, std::vector<std::vector<double>>>(),
            py::arg("basis_vectors"), py::arg("extent"),
-           py::arg("pbc") = std::vector<bool>(0),
+           py::arg("pbc") = std::vector<bool>(true),
            py::arg("atoms_coord") = std::vector<std::vector<double>>(0),
            R"EOF(
                              Constructs a new ``Lattice`` given its side length and the features of the unit cell.
@@ -142,7 +142,7 @@ void AddLattice(py::module& subm) {
                     return Lattice(basis_vectors, extent, pbc, atoms_coord);
                   },
                   py::arg("n_dim"), py::arg("extent"),
-                  py::arg("pbc") = std::vector<bool>(0),
+                  py::arg("pbc") = std::vector<bool>(true),
                   R"EOF(
                 Member function constructing a hypercubic lattice of arbitrary
                 dimension.
@@ -173,7 +173,7 @@ void AddLattice(py::module& subm) {
 
             return Lattice(basis_vectors, extent, pbc, atoms_coord);
           },
-          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(true),
           R"EOF(
       Member function constructing a monoclinic lattice in 2 dimensions.
 
@@ -200,7 +200,7 @@ void AddLattice(py::module& subm) {
 
             return Lattice(basis_vectors, extent, pbc, atoms_coord);
           },
-          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(true),
           R"EOF(
       Member function constructing a rectangular lattice in 2 dimensions.
 
@@ -229,7 +229,7 @@ void AddLattice(py::module& subm) {
 
             return Lattice(basis_vectors, extent, pbc, atoms_coord);
           },
-          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(true),
           R"EOF(
       Member function constructing a centered rectangular lattice in 2 dimensions.
 
@@ -276,7 +276,7 @@ void AddLattice(py::module& subm) {
                     return Lattice(basis_vectors, extent, pbc, atoms_coord);
                   },
                   py::arg("n_dim"), py::arg("extent"),
-                  py::arg("pbc") = std::vector<bool>(0),
+                  py::arg("pbc") = std::vector<bool>(true),
                   R"EOF(
     Member function constructing a hexagonal lattice in 2 or 3 dimensions.
 
@@ -307,7 +307,7 @@ void AddLattice(py::module& subm) {
 
             return Lattice(basis_vectors, extent, pbc, atoms_coord);
           },
-          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(true),
           R"EOF(
     Member function constructing a honeycomb lattice in 2 dimensions.
 
@@ -340,7 +340,7 @@ void AddLattice(py::module& subm) {
 
             return Lattice(basis_vectors, extent, pbc, atoms_coord);
           },
-          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(true),
           R"EOF(
   Member function constructing a kagome lattice in 2 dimensions.
 
@@ -374,7 +374,7 @@ void AddLattice(py::module& subm) {
 
             return Lattice(basis_vectors, extent, pbc, atoms_coord);
           },
-          py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
+          py::arg("extent"), py::arg("pbc") = std::vector<bool>(true),
           R"EOF(
       Member function constructing a triclinic lattice in 3 dimensions.
 
@@ -401,7 +401,6 @@ void AddLattice(py::module& subm) {
                       natoms = 2;
                     } else if (type == "fc") {
                       natoms = 4;
-                      ;
                     }
                     std::vector<std::vector<double>> atoms_coord(
                         natoms, std::vector<double>(3));
@@ -450,10 +449,9 @@ void AddLattice(py::module& subm) {
 
                     return Lattice(basis_vectors, extent, pbc, atoms_coord);
                   },
-                  py::arg("extent"), py::arg("pbc") = std::vector<bool>(0),
-                  py::arg("type") =
-                      "primitive"
-                      R"EOF(
+                  py::arg("extent"), py::arg("pbc") = std::vector<bool>(true),
+                  py::arg("type") = "primitive",
+                  R"EOF(
     Member function constructing an orthorhombic lattice in 3 dimensions.
 
     Args:
